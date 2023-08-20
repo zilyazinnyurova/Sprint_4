@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 class Locators:
     button_order_top = [By.CLASS_NAME, 'Button_Button__ra12g']
 
-    button_order = [By.CLASS_NAME, 'Button_Button__ra12g.Button_Middle__1CSJM']
+    button_order_lower_part = [By.CLASS_NAME, 'Button_Button__ra12g.Button_Middle__1CSJM']
     name_field = [By.XPATH, ".//input[@placeholder='* Имя']"]
     last_name_field = [By.XPATH, ".//input[@placeholder='* Фамилия']"]
     address_field = [By.XPATH, ".//input[@placeholder='* Адрес: куда привезти заказ']"]
@@ -32,5 +32,9 @@ class Locators:
     # LOGO
     logo_scooter = [By.XPATH, ".//img[@alt='Scooter']"]
     logo_yandex = [By.XPATH, ".//img[@alt='Yandex']"]
-    important_questions = [By.CLASS_NAME, "Home_SubHeader__zwi_E"]
+    text_info_about_scooter = [By.CLASS_NAME, "Home_SubHeader__zwi_E"]
+
+    # ОШИБКИ В ПОЛЯХ
+    error_text_for_metro_station_field = [By.XPATH, ".//div[text()='Выберите станцию']"]
+
 

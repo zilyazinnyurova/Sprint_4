@@ -13,13 +13,13 @@ class OrderPage:
         self.driver = driver
 
     def wait_for_load(self, element_locator):
-        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(element_locator)).text
+        WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(element_locator), message=f'Not found {element_locator}')
 
-    def clic_on_button_order_top(self):
+    def clic_on_button_order_main(self):
         self.driver.find_element(*Locators.button_order_top).click()
 
     def clic_on_button_order(self):
-        self.driver.find_element(*Locators.button_order).click()
+        self.driver.find_element(*Locators.button_order_lower_part).click()
     # Имя
     def clic_on_name_field(self):
         self.driver.find_element(*Locators.name_field).click()
@@ -90,3 +90,10 @@ class OrderPage:
 
     def clic_on_logo_yandex(self):
         self.driver.find_element(*Locators.logo_yandex).click()
+
+    def get_text(self, element_locator):
+        return self.driver.find_element(*element_locator).text
+
+    def go_to_button_lower_part(self):
+        element = self.driver.find_element(*Locators.button_order_lower_part)
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
