@@ -10,39 +10,37 @@ class OrderPage:
     def __init__(self, driver):
         self.driver = driver
 
-    def clic_on_button_cookie(self):
-        self.driver.find_element(*Locators.button_cookie).click()
+    # def clic_on_button_cookie(self):
+    #     self.driver.find_element(*Locators.button_cookie).click()
 
     def wait_for_load(self, element_locator):
         WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located(element_locator), message=f'Not found {element_locator}')
 
     def clic_on_button_order_main(self):
-        self.driver.find_element(*Locators.button_order_top).click()
+        self.driver.find_element(*Locators.button_order_main).click()
 
     def clic_on_button_order(self):
-        self.driver.find_element(*Locators.button_order_lower_part).click()
-    # Имя
+        clickable_el = self.driver.find_element(*Locators.button_order_lower_part)
+        self.driver.execute_script("arguments[0].click();", clickable_el)
+
     def clic_on_name_field(self):
         self.driver.find_element(*Locators.name_field).click()
 
     def set_name(self, name):
         self.driver.find_element(*Locators.name_field).send_keys(name)
 
-    # Фамилия
     def clic_on_last_name_field(self):
         self.driver.find_element(*Locators.last_name_field).click()
 
     def set_last_name(self, last_name):
         self.driver.find_element(*Locators.last_name_field).send_keys(last_name)
 
-    # Адрес
     def clic_on_address_field(self):
         self.driver.find_element(*Locators.address_field).click()
 
     def set_address(self, adress):
         self.driver.find_element(*Locators.address_field).send_keys(adress)
 
-    # Станция
     def clic_on_metro_station_field(self):
         self.driver.find_element(*Locators.metro_station_field).click()
 
@@ -52,7 +50,6 @@ class OrderPage:
             selectbox_el.send_keys(Keys.DOWN)
         selectbox_el.send_keys(Keys.ENTER)
 
-    # Номер
     def clic_on_phone_field(self):
         self.driver.find_element(*Locators.phone_field).click()
 
@@ -63,9 +60,9 @@ class OrderPage:
         clickable_el = self.driver.find_element(*Locators.button_next)
         self.driver.execute_script("arguments[0].click();", clickable_el)
 
-# ПРО АРЕНДУ
     def clic_on_when_to_bring_field(self):
         self.driver.find_element(*Locators.when_to_bring_field).click()
+
     def set_when_to_bring_value(self):
         self.driver.find_element(*Locators.when_to_bring_value).click()
 
@@ -86,9 +83,9 @@ class OrderPage:
     def clic_on_button_yes(self):
         self.driver.find_element(*Locators.button_yes).click()
 
-    # LOGO
     def clic_on_logo_scooter(self):
-        self.driver.find_element(*Locators.logo_scooter).click()
+        clickable_el = self.driver.find_element(*Locators.logo_scooter)
+        self.driver.execute_script("arguments[0].click();", clickable_el)
 
     def clic_on_logo_yandex(self):
         self.driver.find_element(*Locators.logo_yandex).click()
@@ -99,3 +96,4 @@ class OrderPage:
     def go_to_button_lower_part(self):
         element = self.driver.find_element(*Locators.button_order_lower_part)
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
