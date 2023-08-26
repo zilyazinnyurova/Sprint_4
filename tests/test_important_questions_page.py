@@ -1,104 +1,51 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from pages.important_questions_page import ImportantQuestionsPage
 from locators.important_questions_locators import Locators
+from data.answers_data import AnswersData
 import allure
+import pytest
+
 
 class TestPraktikumScooter:
-    def setup_class(cls):
-        cls.driver = webdriver.Firefox()
-        cls.driver.get('https://qa-scooter.praktikum-services.ru/')
 
-    @allure.description("tc-1.Кликнуть на вопрос о стоимости.")
-    def test_click_on_button_question_of_cost(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
+    @pytest.mark.parametrize('questions_block', [
+        {'button_locator': Locators.button_question_of_cost,
+         'text_locator': Locators.text_for_cost,
+         'expected_text': AnswersData.cost_answer
+         },
+        {'button_locator': Locators.button_question_of_multiple_scooters,
+         'text_locator': Locators.text_for_multiple_scooters,
+         'expected_text': AnswersData.many_scooters
+         },
+        {'button_locator': Locators.button_question_of_rental_time,
+         'text_locator': Locators.text_for_rental_time,
+         'expected_text': AnswersData.rental_time
+         },
+        {'button_locator': Locators.button_question_of_order_for_today,
+         'text_locator': Locators.text_for_order_for_today,
+         'expected_text': AnswersData.order_for_today
+         },
+        {'button_locator': Locators.button_question_of_order_extension,
+         'text_locator': Locators.text_for_order_extension,
+         'expected_text': AnswersData.order_extension
+         },
+        {'button_locator': Locators.button_question_of_charging,
+         'text_locator': Locators.text_for_charging,
+         'expected_text': AnswersData.charging
+         },
+        {'button_locator': Locators.button_question_of_order_cancel,
+         'text_locator': Locators.text_for_order_cancel,
+         'expected_text': AnswersData.order_cancel
+         },
+        {'button_locator': Locators.button_question_of_order_outside_mkad,
+         'text_locator': Locators.text_for_order_outside_mkad,
+         'expected_text': AnswersData.order_outside_mkad
+         }
+    ])
+    @allure.description("Кликнуть на вопрос и получить ответ")
+    def test_click_on_questions(self, driver, questions_block):
+        important_on_page = ImportantQuestionsPage(driver)
 
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_cost)
-        important_on_page.click_on_button(Locators.button_question_of_cost)
-        important_on_page.wait_for_load_text(Locators.text_for_cost)
-        element = important_on_page.get_text(Locators.text_for_cost)
-        assert element == 'Сутки — 400 рублей. Оплата курьеру — наличными или картой.'
-
-    @allure.description("tc-2.Кликнуть на вопрос о нескольких самокатах.")
-    def test_click_on_button_question_of_multiple_scooters(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_multiple_scooters)
-        important_on_page.click_on_button(Locators.button_question_of_multiple_scooters)
-        important_on_page.wait_for_load_text(Locators.text_for_multiple_scooters)
-        element = important_on_page.get_text(Locators.text_for_multiple_scooters)
-        assert element == 'Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.'
-
-    @allure.description("tc-3.Кликнуть на вопрос об аренде.")
-    def test_click_on_button_question_of_rental_time(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_rental_time)
-        important_on_page.click_on_button(Locators.button_question_of_rental_time)
-        important_on_page.wait_for_load_text(Locators.text_for_rental_time)
-        element = important_on_page.get_text(Locators.text_for_rental_time)
-        assert element == 'Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.'
-
-    @allure.description("tc-4.Кликнуть на вопрос о возможности заказать сегодня.")
-    def test_click_on_button_question_of_order_for_today(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_order_for_today)
-        important_on_page.click_on_button(Locators.button_question_of_order_for_today)
-        important_on_page.wait_for_load_text(Locators.text_for_order_for_today)
-        element = important_on_page.get_text(Locators.text_for_order_for_today)
-        assert element == 'Только начиная с завтрашнего дня. Но скоро станем расторопнее.'
-
-    @allure.description("tc-5.Кликнуть на вопрос о продление.")
-    def test_click_on_button_question_of_order_extension(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_order_extension)
-        important_on_page.click_on_button(Locators.button_question_of_order_extension)
-        important_on_page.wait_for_load_text(Locators.text_for_order_extension)
-        element = important_on_page.get_text(Locators.text_for_order_extension)
-        assert element == 'Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.'
-
-    @allure.description("tc-6.Кликнуть на вопрос о зарядке.")
-    def test_click_on_button_question_of_charging(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_charging)
-        important_on_page.click_on_button(Locators.button_question_of_charging)
-        important_on_page.wait_for_load_text(Locators.text_for_charging)
-        element = important_on_page.get_text(Locators.text_for_charging)
-        assert element == 'Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.'
-
-    @allure.description("tc-7.Кликнуть на вопрос об отмене.")
-    def test_click_on_button_question_of_order_cancel(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_order_cancel)
-        important_on_page.click_on_button(Locators.button_question_of_order_cancel)
-        important_on_page.wait_for_load_text(Locators.text_for_order_cancel)
-        element = important_on_page.get_text(Locators.text_for_order_cancel)
-        assert element == 'Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.'
-
-    @allure.description("tc-8.Кликнуть на вопрос о доставке за МКАД.")
-    def test_click_on_button_question_of_order_outside_mkad(self):
-        important_on_page = ImportantQuestionsPage(self.driver)
-
-        important_on_page.go_to_questions()
-        important_on_page.wait_for_load_title(Locators.button_question_of_order_outside_mkad)
-        important_on_page.click_on_button(Locators.button_question_of_order_outside_mkad)
-        important_on_page.wait_for_load_text(Locators.text_for_order_outside_mkad)
-        element = important_on_page.get_text(Locators.text_for_order_outside_mkad)
-        assert element == 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'
-
-    @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+        important_on_page.scroll_to_questions_block()
+        important_on_page.click_to_question_button(questions_block['button_locator'])
+        answer = important_on_page.get_answer(questions_block['text_locator'])
+        assert answer == questions_block['expected_text']

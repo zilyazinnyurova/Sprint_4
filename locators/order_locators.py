@@ -1,9 +1,9 @@
 from selenium.webdriver.common.by import By
 
 class Locators:
-    # button_cookie = (By.CLASS_NAME, 'App_CookieButton__3cvqF')
-    button_order_main = (By.CLASS_NAME, 'Button_Button__ra12g') # Кнопка "Заказать" сверху
-    button_order_lower_part = (By.XPATH, ".//button[(@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Заказать')]") # Кнопка "Заказать" снизу
+    button_order_main = (By.CLASS_NAME, 'Button_Button__ra12g') # Кнопка "Заказать" сверху на главной странице
+    button_order_lower_part = (By.XPATH, ".//div[contains(@class, 'Home_FinishButton')]/button[contains(@class, 'Button_Button')]") # Кнопка "Заказать" снизу на главной странице
+    button_order = (By.XPATH, ".//div[contains(@class, 'Order_Button')]/button[contains(text(), 'Заказать')]") # Кнопка "Заказать" на странице заказа
     name_field = (By.XPATH, ".//input[@placeholder='* Имя']") # Поле "Имя"
     last_name_field = (By.XPATH, ".//input[@placeholder='* Фамилия']") # Поле "Фамилия"
     address_field = (By.XPATH, ".//input[@placeholder='* Адрес: куда привезти заказ']") # Поле "Адрес"
@@ -16,8 +16,8 @@ class Locators:
     period_field = (By.XPATH, ".//div[@class='Dropdown-placeholder']") # Поле "Период"
     period_field_value = (By.XPATH, ".//div[text()='трое суток']") # Выбор периода
     color_scooter_field = (By.XPATH, ".//input[@id='black']/parent::label") # Поле "Цвет"
-    comments_field = (By.XPATH, ".//input[@class='Input_Input__1iN_Z Input_Responsible__1jDKN']") # Поле "Комментарии"
-    button_yes = (By.XPATH, ".//button[(@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да')]") # Кнопка "Да"
+    comments_field = (By.XPATH, ".//input[@placeholder='Комментарий для курьера']") # Поле "Комментарии"
+    button_yes = (By.XPATH, ".//div[contains(@class, 'Order_Button')]/button[contains(text(), 'Да')]") # Кнопка "Да"
     status_order = (By.XPATH, ".//div[(@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен')]") # Текст статуса заказа
     logo_scooter = [By.XPATH, ".//img[@alt='Scooter']"] # Логотип "Самоката"
     logo_yandex = [By.XPATH, ".//img[@alt='Yandex']"] # Логотип "Яндекса"
